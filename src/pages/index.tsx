@@ -1,7 +1,9 @@
 import type { NextPage } from 'next'
 
+import { Home as HomePage } from '~/features/home/index'
+
 const Home: NextPage = () => {
-  return <div>Hello</div>
+  return <HomePage />
 }
 
 export default Home

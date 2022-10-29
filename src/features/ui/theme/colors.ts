@@ -5,8 +5,11 @@ export const colors = {
   },
   accent: {
     base: '#00ADB5',
+    baseDarker: '#007a80',
   },
   text: {
     base: '#EEEEEE',
+    subtle: '#8c8c8c',
+    inverted: '#222831',
   },
 }
