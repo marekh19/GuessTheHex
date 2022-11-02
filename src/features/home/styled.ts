@@ -15,5 +15,4 @@ export const Heading = styled.h1`
 export const GuessContainer = styled.main`
   width: 100%;
   max-width: 70rem;
-  border: 1px solid yellow;
 `
