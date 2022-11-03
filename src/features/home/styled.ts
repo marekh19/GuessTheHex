@@ -15,12 +15,10 @@ export const Heading = styled.h1`
 export const GuessContainer = styled.main`
   width: 100%;
   max-width: 70rem;
-  border: 1px solid red;
 `
 
 export const ButtonContainer = styled.div`
   display: flex;
-  border: 1px solid green;
   align-items: center;
   justify-content: space-around;
   padding: 2rem 0;
