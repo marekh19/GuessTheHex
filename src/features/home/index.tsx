@@ -60,18 +60,13 @@ export const Home: FC = () => {
           <HexToGuess>{correctColor.toUpperCase()}</HexToGuess>
           <Streak>Streak: {currentStreak}</Streak>
           <GuessContainer>
-            <ColorButton
-              color={colors[0]}
-              onClick={() => evaluateGuessIsCorrect(colors[0])}
-            />
-            <ColorButton
-              color={colors[1]}
-              onClick={() => evaluateGuessIsCorrect(colors[1])}
-            />
-            <ColorButton
-              color={colors[2]}
-              onClick={() => evaluateGuessIsCorrect(colors[2])}
-            />
+            {colors.map((c) => (
+              <ColorButton
+                color={c}
+                key={`${c}_${Math.random()}`}
+                onClick={() => evaluateGuessIsCorrect(c)}
+              />
+            ))}
           </GuessContainer>
         </>
       )}
