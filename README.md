@@ -1,10 +1,18 @@
 # Guess the Hex
 
-| Fun little game that will test your ability to guess the correct `hex code` of color that is shown. Act quickly and don't cheat. You have only 10 seconds per guess. How high will be your streak?
+Fun little game that will test your ability to guess the correct color representation of  `hex code` of hex code that is shown. How high will be your streak?
 
 ## Built with
 
-- [Next.js]()
-- [React.js]()
+- [Next.js](https://reactjs.org/)
+- [React.js](https://nextjs.org/)
 
-_More info to be added later_
+### Prerequisites
+
+- Node.js and npm/yarn/pnpm
+- Clone this repository and `cd` into it
+
+## Installation
+
+1. Intall all dependencies - `npm install` or `yarn`
+2. Run dev server `npm run dev` or `yarn dev`
