@@ -1,10 +1,15 @@
 import type { FC } from 'react'
 import { useState, useEffect } from 'react'
 
-import { ColorFrame } from './parts/ColorFrame'
-import { Layout, Heading, GuessContainer, ButtonContainer } from './styled'
-
-import { Button } from '../ui/components/Button'
+import {
+  Layout,
+  Heading,
+  GuessContainer,
+  ColorButton,
+  HexToGuess,
+  Streak,
+  Answer,
+} from './styled'
 
 const getRandomHex = (): string => {
   return `#${((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0')}`
@@ -13,37 +18,66 @@ const getRandomHex = (): string => {
 export const Home: FC = () => {
   const [correctColor, setCorrectColor] = useState('')
   const [wrongColors, setWrongColors] = useState<string[]>([])
+  const [currentStreak, setCurrentStreak] = useState<number>(0)
+  const [nextRoundLoading, setNextRoundLoading] = useState(false)
+  const [isGuessCorrect, setIsGuessCorrect] = useState(false)
+
   useEffect(() => {
     setCorrectColor(getRandomHex())
     setWrongColors([getRandomHex(), getRandomHex()])
   }, [])
 
+  useEffect(() => {
+    if (nextRoundLoading) {
+      setCorrectColor(getRandomHex())
+      setWrongColors([getRandomHex(), getRandomHex()])
+      const timer = setTimeout(() => {
+        setNextRoundLoading(false)
+      }, 1500)
+      return () => clearTimeout(timer)
+    }
+  }, [nextRoundLoading])
+
   const colors = [...wrongColors, correctColor]
   colors.sort(() => 0.5 - Math.random())
-  console.log(correctColor)
 
   const evaluateGuessIsCorrect = (color: string) => {
     if (color === correctColor) {
-      // TODO: implement proper answer showing
-      alert('CORRECT!')
+      setCurrentStreak((prev) => prev + 1)
+      setIsGuessCorrect(true)
     } else {
-      alert('WRONG!')
+      setCurrentStreak(0)
+      setIsGuessCorrect(false)
     }
+    setNextRoundLoading(true)
   }
 
   return (
     <Layout>
-      <Heading>Guess the Hex!</Heading>
-      <GuessContainer>
-        <ColorFrame color={correctColor} />
-        <ButtonContainer>
-          {colors.map((c) => (
-            <Button key={c} onClick={() => evaluateGuessIsCorrect(c)}>
-              {c}
-            </Button>
-          ))}
-        </ButtonContainer>
-      </GuessContainer>
+      {!nextRoundLoading && (
+        <>
+          <Heading>Guess the Hex!</Heading>
+          <HexToGuess>{correctColor.toUpperCase()}</HexToGuess>
+          <Streak>Streak: {currentStreak}</Streak>
+          <GuessContainer>
+            <ColorButton
+              color={colors[0]}
+              onClick={() => evaluateGuessIsCorrect(colors[0])}
+            />
+            <ColorButton
+              color={colors[1]}
+              onClick={() => evaluateGuessIsCorrect(colors[1])}
+            />
+            <ColorButton
+              color={colors[2]}
+              onClick={() => evaluateGuessIsCorrect(colors[2])}
+            />
+          </GuessContainer>
+        </>
+      )}
+      {nextRoundLoading && (
+        <Answer>{isGuessCorrect ? 'Correct! 🚀' : 'Wrong 😟'}</Answer>
+      )}
     </Layout>
   )
 }

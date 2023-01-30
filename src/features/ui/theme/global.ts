@@ -27,16 +27,11 @@ export const GlobalStyle = createGlobalStyle`
     color: ${colors.text.base};
   }
 
-  a {
-  color: inherit;
-  text-decoration: none;
-  }
-
   &:focus {
     outline: none;
   }
   
   &:not(input):focus-visible {
-    outline: 3px solid ${colors.accent.base};
+    outline: 3px solid ${colors.text.base};
   }
 `
